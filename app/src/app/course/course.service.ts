@@ -4,6 +4,10 @@ import { map } from 'rxjs/operators'
 import { Course } from './course';
 import { Observable } from 'rxjs/internal/Observable';
 
+interface ApiResponse {
+  courses: Course[]; // Define the expected shape of the response
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +19,12 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.url + 'list.php').pipe(
+    console.log(this.http.get<ApiResponse>(this.url + 'read'));
+
+    return this.http.get<ApiResponse>(this.url + 'read').pipe(
       map((res) => {
-        this.course = res;
+        console.log(res);
+        this.course = res['courses'];
         return this.course
       })
     )

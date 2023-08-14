@@ -1,4 +1,6 @@
-<button (click)="create()">Cadastrar</button>
-<button (click)="select()">Selecionar</button>
-<button (click)="update()">Alterar</button>
-<button (click)="delete()">Excluir</button>
+<table border="1">
+  <tr *ngFor="let course of courses">
+    <td>{{course.courseName}}</td>
+     <td>{{course.coursePrice}}</td>
+  </tr>
+</table>

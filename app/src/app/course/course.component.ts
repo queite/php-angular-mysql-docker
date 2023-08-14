@@ -1,25 +1,35 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from './course';
+import { CourseService } from './course.service';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
-export class CourseComponent {
+export class CourseComponent implements OnInit {
 
-  url = 'http://localhost/';
   courses: Course[] = [];
 
-  constructor(private http: HttpClient) {}
+  courseInstance = new Course()
 
-  create(): void {
+  constructor(private courseService: CourseService) {}
+
+  ngOnInit(): void {
+    this.select();
+  }
+
+  create() {
 
   }
 
-  select(): void {
-
+  select() {
+    this.courseService.getAll().subscribe(
+      (res: Course[]) => {
+        this.courses = res;
+      }
+    );
   }
 
 

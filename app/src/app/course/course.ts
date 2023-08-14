@@ -1,4 +1,5 @@
 export class Course {
-  constructor(courseName: string, coursePrice: number, id?:number) {}
-
+  courseName: string = '';
+  coursePrice: number = 0;
+  id?:number
 }
