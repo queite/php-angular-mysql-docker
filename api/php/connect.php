@@ -11,8 +11,6 @@ if (!$conn) {
     exit('Connection failed: '.mysqli_connect_error().PHP_EOL);
 }
 
-echo 'Successful database connection!'.PHP_EOL;
-
 // Special characters
 mysqli_set_charset($conn, 'utf-8');
 

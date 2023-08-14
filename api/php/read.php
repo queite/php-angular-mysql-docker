@@ -14,16 +14,14 @@ $courses = [];
 $index = 0;
 
 while($line = mysqli_fetch_assoc($execute)) {
-  $courses[] = [
-    'id' => $line['id'],
-    'courseName' => $line['course_name'],
-    'coursePrice' => $line['course_price']
-  ];
+  $courses[$index]['id'] = $line['id'];
+  $courses[$index]['courseName'] = $line['course_name'];
+  $courses[$index]['coursePrice'] = $line['course_price'];
 
   $index++;
 }
 
-json_encode(['courses' => $courses]);
+echo json_encode(['courses' => $courses]);
 
 // var_dump($courses);
 
