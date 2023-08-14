@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+    php:
+        build: ./php
+        ports:
+        - 80:80
+        volumes:
+        - ./php:/var/www/html
+        depends_on:
+        - mysql
+
+    mysql:
+        build: ./db
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_DATABASE: 'api'
+            MYSQL_ROOT_PASSWORD: 'root'
+        volumes:
+            - db-volume:/var/lib/mysql
+
+volumes:
+    db-volume:
