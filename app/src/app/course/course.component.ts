@@ -12,19 +12,26 @@ export class CourseComponent implements OnInit {
 
   courses: Course[] = [];
 
-  courseInstance = new Course()
+  courseInstance = new Course();
 
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.select();
+    this.getAll();
   }
 
   create() {
-
+    this.courseService.write(this.courseInstance).subscribe(
+      (res: Course[]) => {
+        this.courses = res;
+        this.courseInstance.courseName = '';
+        this.courseInstance.coursePrice = 0;
+        this.getAll();
+      }
+    )
   }
 
-  select() {
+  getAll() {
     this.courseService.getAll().subscribe(
       (res: Course[]) => {
         this.courses = res;
@@ -38,6 +45,19 @@ export class CourseComponent implements OnInit {
   }
 
   delete() {
+    this.courseService.delete(this.courseInstance).subscribe(
+      (res: Course[]) => {
+        this.courses = res;
+        this.courseInstance.courseName = '';
+        this.courseInstance.coursePrice = 0;
+        this.getAll();
+      }
+    )
+  }
 
+  select(c: Course) {
+    this.courseInstance.id = c.id;
+    this.courseInstance.courseName = c.courseName;
+    this.courseInstance.coursePrice = c.coursePrice;
   }
 }
