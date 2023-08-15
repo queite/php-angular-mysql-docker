@@ -8,18 +8,28 @@ $getData = file_get_contents('php://input');
 $extract = json_decode($getData);
 
 // Detach json data
-$courseName = $extract->courses->courseName;
-$coursePrice = $extract->courses->coursePrice;
+$courseName = $extract->courseName;
+$coursePrice = $extract->coursePrice;
 
 // SQL
-$sql = 'INSERT into cursos (course_name, course_price) VALUES ("$courseName", $coursePrice)';
-mysqli_query($conn, $sql);
+$sql = "INSERT INTO courses (course_name, course_price) VALUES (?, ?)";
+$stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die('Error in preparing SQL statement: ' . $conn->error);
+}
+
+$stmt->bind_param('sd', $courseName, $coursePrice); // 'sd' stands for string and double
+$result = $stmt->execute();
 
 //Export data
-$course = [
-  'courseName' = $courseName;
-  'coursePrice' = $coursePrice;
-]
+if ($result) {
+    $course = array(
+        'courseName' => $courseName,
+        'coursePrice' => $coursePrice
+    );
+    echo json_encode(array('course' => $course));
+} else {
+    http_response_code(500);
+}
 
-json_encode(['course'] => $course)
 ?>
