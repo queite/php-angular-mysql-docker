@@ -41,7 +41,14 @@ export class CourseComponent implements OnInit {
 
 
   update() {
-
+    this.courseService.update(this.courseInstance).subscribe(
+      (res) => {
+        this.courses = res;
+        this.courseInstance.courseName = '';
+        this.courseInstance.coursePrice = 0;
+        this.getAll();
+      }
+    )
   }
 
   delete() {

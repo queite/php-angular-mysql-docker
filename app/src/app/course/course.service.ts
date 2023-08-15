@@ -49,4 +49,24 @@ export class CourseService {
       })
     )
   }
+
+  update(c: Course): Observable<Course[]> {
+    console.log("c service", c);
+
+    return this.http.put(this.url + 'update', c).pipe(
+      map((res) => {
+        console.log('res service', res);
+        
+        const modifiedCourse = this.courses.find(course => course['id'] === c['id']);
+        console.log('modifiedCourse',modifiedCourse);
+
+        if(modifiedCourse) {
+          modifiedCourse.courseName = c.courseName;
+          modifiedCourse.coursePrice = c.coursePrice;
+        }
+
+        return this.courses;
+      })
+    )
+  }
 }
