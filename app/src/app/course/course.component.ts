@@ -21,7 +21,7 @@ export class CourseComponent implements OnInit {
   }
 
   create() {
-    this.courseService.write(this.courseInstance).subscribe(
+    this.courseService.create(this.courseInstance).subscribe(
       (res: Course[]) => {
         this.courses = res;
         this.courseInstance.courseName = '';

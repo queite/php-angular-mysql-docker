@@ -1,6 +1,20 @@
+<form>
+  <label>Curso</label>
+  <input type="text" name="courseName" [(ngModel)]="courseInstance.courseName"/>
+  <br>
+  <label>Valor</label>
+  <input type="text" name="coursePrice" [(ngModel)]="courseInstance.coursePrice"/>
+  <br>
+  <button (click)="create()">Cadastrar</button>
+  <button>Alterar</button>
+  <button (click)="delete()">Excluir</button>
+</form>
+
+
 <table border="1">
   <tr *ngFor="let course of courses">
     <td>{{course.courseName}}</td>
      <td>{{course.coursePrice}}</td>
+     <td><button (click)="select(course)">Selecionar curso</button></td>
   </tr>
 </table>

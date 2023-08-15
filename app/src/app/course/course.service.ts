@@ -27,10 +27,11 @@ export class CourseService {
     )
   }
 
-  write(c: Course): Observable<Course[]> {
-    return this.http.post<ApiResponse>(this.url + 'write', {courses: c}).pipe(
-      map((res) => {
-        this.courses.push(res['courses'][0]);
+  create(c: Course): Observable<Course[]> {
+    return this.http.post(this.url + 'create', c).pipe(
+      map((res: any) => {
+        this.courses.push(res);
+
         return this.courses;
       })
     )
