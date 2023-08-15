@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+    angular:
+        build: ./app
+        ports:
+            - 4200:4200
+        command: >
+            bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
+
+    php:
+        build: ./api/php
+        ports:
+        - 80:80
+        volumes:
+        - ./api/php:/var/www/html
+        # - ./api/php/.htaccess:/var/www/html/.htaccess
+        depends_on:
+        - mysql
+
+
+
+    mysql:
+        build: ./api/db
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_DATABASE: 'api'
+            MYSQL_ROOT_PASSWORD: 'root'
+        volumes:
+            - db-volume:/var/lib/mysql
+
+volumes:
+    db-volume:
